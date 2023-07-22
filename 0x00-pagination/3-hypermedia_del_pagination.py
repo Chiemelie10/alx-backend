@@ -104,6 +104,9 @@ class Server():
 
         dataset = self.indexed_dataset()
 
+        if index is None:
+            index = 0
+
         if index is not None:
             assert isinstance(index, int) and index >= 0\
                 and index < len(dataset)
