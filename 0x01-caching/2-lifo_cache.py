@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""This module defines class FIFOCache that inherits from BaseCaching."""
+"""This module defines class LIFOCache that inherits from BaseCaching."""
 from base_caching import BaseCaching
 
 
-class FIFOCache(BaseCaching):
+class LIFOCache(BaseCaching):
     """
     This class defines the attributes and methods of class
-    FIFOCache, a caching system.
+    LIFOCache, a caching system.
     """
 
     def __init__(self):
@@ -17,8 +17,8 @@ class FIFOCache(BaseCaching):
         """
         This method adds keys with their coressponding values
         to self.cache_data, the dictionary inherited from the
-        parent class. It also deletes the first entered key
-        once the cache exceeds a set limit.
+        parent class. It also deletes the last inserted key
+        when the cache reaches full capacity.
         """
 
         if key is not None and item is not None:
@@ -26,11 +26,15 @@ class FIFOCache(BaseCaching):
             self.tracker.append(key)
 
             if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-                first_key = next(iter(self.tracker))
-                self.tracker.remove(first_key)
+                list_reverse_iter_object = reversed(self.tracker)
 
-                del self.cache_data[first_key]
-                print("DISCARD: {}".format(first_key))
+                for _ in range(2):
+                    second_to_last_key = next(list_reverse_iter_object)
+
+                self.tracker.remove(second_to_last_key)
+
+                del self.cache_data[second_to_last_key]
+                print("DISCARD: {}".format(second_to_last_key))
 
     def get(self, key):
         """Returns the value in self.cache_data linked to a key."""
