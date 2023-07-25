@@ -18,6 +18,8 @@ class BasicCache(BaseCaching):
     def get(self, key):
         """This method returns the value in self.cache_data linked to key."""
 
-        value = self.cache_data.get(key)
+        if key is None:
+            return None
 
+        value = self.cache_data.get(key)
         return value
