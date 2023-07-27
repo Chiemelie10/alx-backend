@@ -41,6 +41,7 @@ class LRUCache(BaseCaching):
                     if count == 0:
                         lowest = value
                         key_to_lowest = key
+                        count += 1
                         continue
                     if value < lowest:
                         lowest = value
@@ -91,7 +92,6 @@ class LRUCache(BaseCaching):
         value = self.cache_data.get(key)
 
         if value is not None:
-            # current_value = self.tracker.get(key)
             self.tracker[key] = 1
             self.insertions_after_get[key] = 1
 
